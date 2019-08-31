@@ -10,22 +10,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        readFromAsset()
+        val data = readFromAsset()
+
+        textView.setText(data)
+
     }
 
 
-    private fun readFromAsset(): Unit {
+    private fun readFromAsset(): String {
         val file_name = "android_version.json"
 
         val bufferReader = application.assets.open(file_name).bufferedReader()
 
-        val json_string = bufferReader.use {
+        val data = bufferReader.use {
             it.readText()
         }
 
-        textView.setText(json_string)
+        Log.d("readFromAsset", data)
 
-        Log.d("readFromAsset", json_string)
-
+        return data;
     }
 }
